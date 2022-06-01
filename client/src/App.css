@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Grand+Hotel&display=swap');
 
-.brand-logo{
+.brand-logo,h2{
   font-family: 'Grand Hotel', cursive;
 }
 
@@ -10,4 +10,9 @@
   text-align: center;
    max-width: 400px;
    margin:10px auto;
+   margin-top: 40px;
+}
+.input-field input[type=text]:focus {
+  border-bottom: 1px solid yellow !important;
+  box-shadow: 0 1px 0 0 yellow !important;
 }
