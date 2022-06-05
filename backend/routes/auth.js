@@ -47,11 +47,14 @@ const requireLogin = require('../middleware/requireLogin')
 
 //my method of register
 router.post('/signup', async(req,res) => {
-    const {name, email,password} = req.body
-    const userExists = await User.findOne({email})
+      const {name, email,password} = req.body
+      if(!email || !password){
+                return res.status(422).json({error: "Please provide all credentials"})
+            }
+      const userExists = await User.findOne({email})
     if(userExists){
-        res.status(400)
-        throw newError("User already exists")
+         res.status(400)
+        throw new Error("User already exists")
     }
    // password is hashed in userModel
         const user = await User.create({
@@ -60,6 +63,7 @@ router.post('/signup', async(req,res) => {
         })
         if(user){
             res.status(201).json({
+                message:"saved successfully",
                 _id: user._id,
                 name: user.name,
                 email: user.email,
@@ -67,10 +71,9 @@ router.post('/signup', async(req,res) => {
             })
         } else{
             res.status(400)
-            throw newError("Invalid user data")
+            throw new Error("Invalid user data")
         }
-    
-})
+    })
 //his way
 // router.post('/signin',(req,res) => {
 //     const {email,password} = req.body
